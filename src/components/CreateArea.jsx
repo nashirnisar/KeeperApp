@@ -20,11 +20,8 @@ function CreateArea(props) {
       };
     });
   }
-  function handleFocus() {
+  function handleClick() {
     setExpanded(true);
-  }
-  function handleFocusOut() {
-    setExpanded(false);
   }
 
   function submitNote(event) {
@@ -39,23 +36,23 @@ function CreateArea(props) {
   return (
     <div>
       <form className="create-note">
-        <input
-          type={isExpanded ? "text" : "hidden"}
-          name="title"
-          onChange={handleChange}
-          value={note.title}
-          placeholder="Title"
-        />
+        {isExpanded && (
+          <input
+            name="title"
+            onChange={handleChange}
+            value={note.title}
+            placeholder="Title"
+          />
+        )}
         <textarea
-          onFocus={handleFocus}
-          onBlur={handleFocusOut}
+          onClick={handleClick}
           name="content"
           onChange={handleChange}
           value={note.content}
           placeholder="Take a note..."
           rows={isExpanded ? "3" : "1"}
         />
-        <Zoom in={isExpanded ? true : false}>
+        <Zoom in={isExpanded}>
           <Fab onClick={submitNote}>
             <AddIcon />
           </Fab>
